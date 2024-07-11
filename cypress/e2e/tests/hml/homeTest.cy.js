@@ -94,5 +94,11 @@ describe('validação da página de home', () => {
       cy.contains(homeElements.searchResults).should('be.visible');
       cy.contains(homeElements.viewMoreResults).should('be.visible');
     });
+    it('click em um banner', () => {
+      
+    });
+    it('adicionar um produto da home', () => {
+      
+    });
   });
 });

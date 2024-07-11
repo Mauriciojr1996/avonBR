@@ -1,7 +1,8 @@
 
 const loginElements = require('../../../support/pageElements/loginElements');
 const homeElements = require('../../../support/pageElements/homeElements');
-const globalData = require('../../../support/data/globalData.json')
+const globalData = require('../../../support/data/globalData.json');
+const globalAssertion = require('../../../support/data/globalAssertion.json');
 describe('Login', () => {
     context('validação de acesso a login', () => {
         beforeEach(() => {
@@ -23,12 +24,62 @@ describe('Login', () => {
 
             // Aguardando o texto estar visivel para fazer a validação correta do elemento
             cy.contains(homeElements.elementNameUser, 'Olá, Automation!', { timeout: 10000 }) // 10 segundos
-              .should('be.visible');
+                .should('be.visible');
 
             // Valida que realizei o login com sucesso 
             cy.get(homeElements.elementNameUser)
                 .should('be.visible')
                 .and('have.text', 'Olá, Automation!');
+        });
+        it('login com dados invalidos', () => {
+            //Inserindo credencias invalidas para realizar login
+            cy.get(loginElements.campoLogin).type(globalData.usuarioInexistente.email)
+            cy.get(loginElements.campoSenha).type(globalData.usuarioInexistente.password)
+
+            // click para entrar na conta do usuario
+            cy.get(loginElements.btnEntrar).should('be.visible').click()
+
+            // Aguardando o texto estar visivel para fazer a validação correta do elemento
+            cy.contains(loginElements.textLoginInvalid, 'Informe um login válido', { timeout: 10000 }) // 10 segundos
+                .should('be.visible');
+
+            // Valida que realizei o login com sucesso 
+            cy.get(loginElements.textLoginInvalid2)
+                .should('exist')
+                .and('have.text', globalAssertion.loginAssertion.textMessageLoginInvalid);
+        });
+        it('Logout', () => {
+            //Inserindo credencias para realizar login
+            cy.get(loginElements.campoLogin).type(globalData.usuarioValido.email)
+            cy.get(loginElements.campoSenha).type(globalData.usuarioValido.password)
+
+            // click para entrar na conta do usuario
+            cy.get(loginElements.btnEntrar).should('be.visible').click()
+
+            // Aguardando o texto estar visivel para fazer a validação correta do elemento
+            cy.contains(homeElements.elementNameUser, 'Olá, Automation!', { timeout: 10000 }) // 10 segundos
+                .should('be.visible');
+
+            // Valida que realizei o login com sucesso 
+            cy.get(homeElements.elementNameUser)
+                .should('be.visible')
+                .and('have.text', 'Olá, Automation!'); 
+
+            //click no menu usuario
+            cy.get(loginElements.btnMenuUser).should('be.visible').click()
+            
+            cy.wait(5000)
+            // click em sair
+            cy.contains('Sair').should('be.visible').click();
+
+            // Aguardando o texto estar visivel para fazer a validação correta do elemento
+            cy.contains(homeElements.elementNameUser, 'Minha conta', { timeout: 10000 }) // 10 segundos
+                .should('be.visible');
+
+            // Valida que realizei o login com sucesso 
+            cy.get(homeElements.elementNameUser)
+                .should('be.visible')
+                .and('have.text', 'Minha conta');
         });
     })
 })
