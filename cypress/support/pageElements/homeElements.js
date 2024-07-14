@@ -14,7 +14,9 @@ const homeElements = {
     searchInput: 'input[name="search"]',
     searchResults: 'resultados encontrados',
     viewMoreResults: 'Ver mais resultados',
-    elementNameUser: "h6.MuiTypography-root.MuiTypography-subtitle2"
+    elementNameUser: "h6.MuiTypography-root.MuiTypography-subtitle2",
+    btnAddProduct: "#buttonCard",
+    iconBag: ".MuiBadge-badge"
   };
   export default homeElements;
   

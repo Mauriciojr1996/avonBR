@@ -94,5 +94,12 @@ describe('validação da página de home', () => {
       cy.contains(homeElements.searchResults).should('be.visible');
       cy.contains(homeElements.viewMoreResults).should('be.visible');
     });
+    it('adicionar um produto da home', () => {
+      cy.scrollTo(0, 500);
+      cy.get(homeElements.btnAddProduct).first().should('exist').and('be.visible').scrollIntoView();
+      cy.get(homeElements.btnAddProduct).first().contains('COMPRAR').click()
+      cy.reload();
+      cy.get(homeElements.iconBag).should('have.text', '1')
+    });
   });
 });

@@ -10,7 +10,7 @@ describe('validação da página de home', () => {
       cy.wait(5000);
     });
 
-    it.only('Categoria Lançamentos', () => {
+    it('Categoria Lançamentos', () => {
       cy.contains('Lançamentos').should('be.visible');
       cy.clickButton(homeElements.lancamentosLink);
       cy.contains('Home').should('be.visible');
@@ -94,11 +94,12 @@ describe('validação da página de home', () => {
       cy.contains(homeElements.searchResults).should('be.visible');
       cy.contains(homeElements.viewMoreResults).should('be.visible');
     });
-    it('click em um banner', () => {
-      
-    });
     it('adicionar um produto da home', () => {
-      
+      cy.scrollTo(0, 500);
+      cy.get(homeElements.btnAddProduct).first().should('exist').and('be.visible').scrollIntoView();
+      cy.get(homeElements.btnAddProduct).first().contains('COMPRAR').click()
+      cy.reload();
+      cy.get(homeElements.iconBag).should('have.text', '1')
     });
   });
 });
