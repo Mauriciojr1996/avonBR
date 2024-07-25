@@ -57,7 +57,7 @@ describe('Login', () => {
                 .and('have.text', 'Minha conta');
         });
     })
-    it.only('login com dados invalidos', () => {
+    it('login com dados invalidos', () => {
         const url = 'https://www.avon.com.br/login?redirect=%2F';
             // Usa a variável para visitar a URL
             cy.visit(url);
