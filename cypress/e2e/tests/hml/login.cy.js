@@ -81,4 +81,32 @@ describe('Login', () => {
             .should('exist')
             .and('have.text', globalAssertion.loginAssertion.textMessageLoginInvalid);
     });
+    it.only('Favoritar produto sem estar logado', () => {
+      const url = 'https://hml-avon-br.hml.naturacloud.com/';
+      cy.visit(url);
+      cy.url().should('eq', url);
+      cy.wait(5000);
+
+      // favoritar primeiro produto da home
+      cy.get(homeElements.btnAddProduct).first().should('exist').and('be.visible').scrollIntoView();
+      cy.get(loginElements.btnIconFavorito).first().should('exist').click()
+
+      // realiza login
+      cy.get(loginElements.campoLogin).type(globalData.usuarioValido.email)
+      cy.get(loginElements.campoSenha).type(globalData.usuarioValido.password)
+    
+       // click para entrar na conta do usuario
+       cy.get(loginElements.btnEntrar).should('be.visible').click()
+
+       // Aguardando que o login foi efetuado com sucesso
+       cy.contains(homeElements.elementNameUser, 'Olá, Automation!', { timeout: 10000 }) // 10 segundos
+       .should('be.visible');
+       
+       // acessar area de favoritos
+       cy.get(loginElements.btnAreaFavoritos).first().should('be.visible').click()
+
+       // verifica que a area de favoritos não contem nenhum produto favoritado
+       cy.get(loginElements.textListaFavoritosVazia).eq(1)
+       .should('exist').and('have.text', globalAssertion.favoritosAssertion.listaFavoritos)
+    });
 })
