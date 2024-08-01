@@ -101,5 +101,23 @@ describe('validação da página de home', () => {
       cy.reload();
       cy.get(homeElements.iconBag).should('have.text', '1')
     });
+    it('Páginas (mostrar mais)', () => {
+      
+    });
+    it('PDP', () => {
+      
+    });
+    it('Avaliação de produtos', () => {
+      
+    });
+    it('Ordenar por(Mais vendidos, Menos preço, Maior preço)', () => {
+      
+    });
+    it('Filtros(Marcas)', () => {
+      
+    });
+    it('Avise-Me', () => {
+      
+    });
   });
 });
