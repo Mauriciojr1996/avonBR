@@ -81,11 +81,11 @@ describe('Login', () => {
             .should('exist')
             .and('have.text', globalAssertion.loginAssertion.textMessageLoginInvalid);
     });
-    it.only('Favoritar produto sem estar logado', () => {
+    it('Favoritar produto sem estar logado', () => {
       const url = 'https://hml-avon-br.hml.naturacloud.com/';
       cy.visit(url);
       cy.url().should('eq', url);
-      cy.wait(5000);
+      cy.wait(10000);
 
       // favoritar primeiro produto da home
       cy.get(homeElements.btnAddProduct).first().should('exist').and('be.visible').scrollIntoView();

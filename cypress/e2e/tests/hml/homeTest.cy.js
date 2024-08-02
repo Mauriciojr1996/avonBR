@@ -101,7 +101,12 @@ describe('validação da página de home', () => {
       cy.reload();
       cy.get(homeElements.iconBag).should('have.text', '1')
     });
-    it('Páginas (mostrar mais)', () => {
+    it.only('Páginas (mostrar mais)', () => {
+      cy.clickButton(homeElements.perfumariaLink);
+      cy.contains('Perfumaria').should('be.visible');
+      // continuar com a validação do campo com 12 de default xpath encontrado seria //div[options="12,24,36,48"]
+      cy.pause()
+
       
     });
     it('PDP', () => {
@@ -110,7 +115,7 @@ describe('validação da página de home', () => {
     it('Avaliação de produtos', () => {
       
     });
-    it('Ordenar por(Mais vendidos, Menos preço, Maior preço)', () => {
+    it('Ordenar por(Mais vendidos, Menor preço, Maior preço)', () => {
       
     });
     it('Filtros(Marcas)', () => {
